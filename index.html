@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FIRE</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      /* 🔥 Fire-like animated background */
+      background: linear-gradient(-45deg, #ff3c00, #ff7300, #ff0000, #000000);
+      background-size: 400% 400%;
+      animation: fireBG 10s ease infinite;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    @keyframes fireBG {
+      0% { background-position: 0% 50% }
+      50% { background-position: 100% 50% }
+      100% { background-position: 0% 50% }
+    }
+
+    /* 🔥 FIRE logo */
+    h1 {
+      font-size: 90px;
+      margin-bottom: 40px;
+      margin-top: 0;
+      letter-spacing: 6px;
+      background: linear-gradient(45deg, #fff, #ffcc00, #ff3c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s infinite alternate;
+      text-align: center;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff3c00; }
+      to { text-shadow: 0 0 30px #ffcc00; }
+    }
+
+    /* Views */
+    .view {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* 🔍 Search */
+    .search-box {
+      width: 500px;
+      max-width: 90%;
+      display: flex;
+      align-items: center;
+      background: rgba(0,0,0,0.6);
+      border-radius: 30px;
+      padding: 12px 20px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(10px);
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: white;
+      font-size: 18px;
+    }
+
+    .search-box button {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* 🔗 Shortcuts */
+    .shortcuts {
+      display: flex;
+      gap: 30px;
+    }
+
+    .shortcut {
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .shortcut:hover {
+      transform: scale(1.1);
+    }
+
+    .shortcut img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: white;
+      padding: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      font-size: 14px;
+    }
+
+    /* 🎮 Arcade View Styles */
+    .back-btn {
+      color: #ffcc00;
+      text-decoration: none;
+      margin-bottom: 40px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .back-btn:hover {
+      text-shadow: 0 0 10px #ff3c00;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      width: 100%;
+      max-width: 950px;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .game-card {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid rgba(255, 60, 0, 0.2);
+    }
+
+    .game-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255, 60, 0, 0.4);
+    }
+
+    .game-card img {
+      width: 65px;
+      height: 65px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      background: white;
+      padding: 5px;
+      object-fit: contain;
+    }
+
+    .game-card h3 {
+      margin: 10px 0 5px 0;
+      font-size: 20px;
+    }
+
+    .game-card p {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+
+    .play-btn {
+      display: inline-block;
+      background: linear-gradient(45deg, #ff7300, #ff3c00);
+      color: white;
+      padding: 8px 22px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="home-view" class="view">
+    <h1>🔥 FIRE 🔥</h1>
+
+    <form action="https://www.google.com/search" method="GET">
+      <div class="search-box">
+        <input type="text" name="q" placeholder="Search FIRE..." />
+        <button type="submit">🔍</button>
+      </div>
+    </form>
+
+    <div class="shortcuts">
+      <a href="https://www.youtube.com/@LilFlame.13" target="_blank">
+        <div class="shortcut">
+          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
+          <div>YouTube</div>
+        </div>
+      </a>
+
+      <div class="shortcut" id="game-shortcut-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png">
+        <div>Games</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="arcade-view" class="view hidden">
+    <h1>🔥 ARCADE 🔥</h1>
+    <div class="back-btn" id="back-home-btn">⬅ Back to Home</div>
+
+    <div class="games-grid">
+      <div class="game-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3408/3408506.png" alt="Neo-Royal">
+        <h3>Neo-Royal</h3>
+        <p>Jump into the action and play Neo-Royal.</p>
+        <a href="https://novablaze13.github.io/Neo-Royal/" target="_blank" class="play-btn">PLAY</a>
+      </div>
+
+      <div class="game-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="Slope">
+        <h3>Slope</h3>
+        <p>Avoid obstacles and roll down the ramp.</p>
+        <a href="https://slopegame.io/" target="_blank" class="play-btn">PLAY</a>
+      </div>
+
+      <div class="game-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2805/2805822.png" alt="Tetris">
+        <h3>Tetris</h3>
+        <p>Classic block fitting puzzle game.</p>
+        <a href="https://tetris.com/play-tetris" target="_blank" class="play-btn">PLAY</a>
+      </div>
+
+      <div class="game-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1043/1043444.png" alt="Snake">
+        <h3>Snake</h3>
+        <p>Eat the apples and grow longer.</p>
+        <a href="https://www.google.com/search?q=play+snake" target="_blank" class="play-btn">PLAY</a>
+      </div>
+    </div>
+  </div>
+
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-energy.mp3" type="audio/mp3">
+  </audio>
+
+<script>
+  // Background music handler
+  document.body.addEventListener("click", () => {
+    document.querySelector("audio").play();
+  }, { once: true });
+
+  // Page switching logic
+  const homeView = document.getElementById('home-view');
+  const arcadeView = document.getElementById('arcade-view');
+  const gameBtn = document.getElementById('game-shortcut-btn');
+  const backBtn = document.getElementById('back-home-btn');
+
+  gameBtn.addEventListener('click', () => {
+    homeView.classList.add('hidden');
+    arcadeView.classList.remove('hidden');
+  });
+
+  backBtn.addEventListener('click', () => {
+    arcadeView.classList.add('hidden');
+    homeView.classList.remove('hidden');
+  });
+</script>
+
+</body>
+</html>
